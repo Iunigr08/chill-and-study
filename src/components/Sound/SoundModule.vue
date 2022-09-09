@@ -11,10 +11,10 @@
 export default {
   data: function () {
     return {
-      audioStart: new Audio(require("../assets/mp3/start.mp3")),
-      audioReset: new Audio(require("../assets/mp3/reset.mp3")),
-      audioStop: new Audio(require("../assets/mp3/stop.mp3")),
-      audioFinish: new Audio(require("../assets/mp3/finish.mp3")),
+      audioStart: new Audio(require("../../assets/mp3/start.mp3")),
+      audioReset: new Audio(require("../../assets/mp3/reset.mp3")),
+      audioStop: new Audio(require("../../assets/mp3/stop.mp3")),
+      audioFinish: new Audio(require("../../assets/mp3/finish.mp3")),
     }
   },
   methods: {

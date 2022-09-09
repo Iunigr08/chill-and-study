@@ -1,3 +1,5 @@
+test
+
 # richtime-vue
 wikiに色々書いてます→[当リポジトリwiki](https://gitlab.cis.iwate-u.ac.jp/2022_gr08/richtime-vue/-/wikis/home)
 

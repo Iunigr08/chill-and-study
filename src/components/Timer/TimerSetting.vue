@@ -112,10 +112,10 @@
 </template>
 
 <script>
-import SelectTime from "./Select/SelectTime.vue"
-import SelectLap from "./Select/SelectLap.vue"
-import DispTimeAnother from "./Disp/DispTimeAnother.vue"
-import DispLapAnother from "./Disp/DispLapAnother.vue"
+import SelectTime from "../Select/SelectTime.vue"
+import SelectLap from "../Select/SelectLap.vue"
+import DispTimeAnother from "../Disp/DispTimeAnother.vue"
+import DispLapAnother from "../Disp/DispLapAnother.vue"
 
 export default {
   components: {

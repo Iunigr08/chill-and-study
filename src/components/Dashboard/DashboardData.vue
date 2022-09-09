@@ -52,10 +52,10 @@
 </template>
 
 <script>
-import DashboardDispGraph from "../DashboardDispGraph.vue"
-import DashboardEditPreset from "../DashboardEditPreset.vue"
+import DashboardDispGraph from "./Board/DashboardDispGraph.vue"
+import DashboardEditPreset from "./Board/DashboardEditPreset.vue"
 import DashboardDispTime from "../DashboardDispTime.vue"
-import DashboardSumTime from "../DashBoardSumTime.vue"
+import DashboardSumTime from "./Board/DashBoardSumTime.vue"
 
 export default {
   components: {

@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import TheGlobalSidebar from "./Flame/TheGlobalSidebar.vue"
-import TheGlobalHeader from "./Flame/TheGlobalHeader.vue"
+import TheGlobalSidebar from "./TheGlobalSidebar.vue"
+import TheGlobalHeader from "./TheGlobalHeader.vue"
 
 export default {
   name: "HomeLayout",

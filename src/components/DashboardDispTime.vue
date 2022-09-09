@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import DashboardTimelineCard from "../components/DashboardTimelineCard.vue"
-import DashboardEditTime from "../components/DashboardEditTime.vue"
+import DashboardTimelineCard from "./Dashboard/Record/DashboardTimelineCard.vue"
+import DashboardEditTime from "./Dashboard/Record/DashboardEditTime.vue"
 
 export default {
   components: {

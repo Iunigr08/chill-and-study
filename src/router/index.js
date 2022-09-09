@@ -15,7 +15,7 @@ const routes = [
       {
         path: "/timerset",
         name: "TimerSetting",
-        component: () => import("../components/TimerSetting.vue"),
+        component: () => import("../components/Timer/TimerSetting.vue"),
       },
     ],
   },

@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import TimerSave from "./TimerSave.vue"
+import TimerSave from "./Timer/TimerSave.vue"
 import DispTime from "./Disp/DispTime.vue"
 
 export default {

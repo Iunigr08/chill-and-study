@@ -18,7 +18,7 @@
 
 <script>
 import HomeLayout from "../components/HomeLayout.vue"
-import ClockTime from "../components/ClockState.vue"
+import ClockTime from "../components/Clock/ClockState.vue"
 // import TimerSetting from "../components/TimerSetting.vue"
 // import TimerScreen from "../components/TimerScreen.vue"
 // import TimerSave from "../components/TimerSave.vue"

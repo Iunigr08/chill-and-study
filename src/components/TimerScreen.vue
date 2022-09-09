@@ -101,7 +101,7 @@
 
 <script>
 import TimerSave from "./TimerSave.vue"
-import DispTime from "./DispTime.vue"
+import DispTime from "./Disp/DispTime.vue"
 
 export default {
   components: {

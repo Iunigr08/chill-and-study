@@ -197,8 +197,8 @@
 </template>
 
 <script>
-import DispTime from "./DispTime.vue"
-import SelectTime from "./SelectTime.vue"
+import DispTime from "./Disp/DispTime.vue"
+import SelectTime from "./Select/SelectTime.vue"
 
 export default {
   components: { DispTime, SelectTime },

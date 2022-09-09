@@ -38,12 +38,12 @@ const routes = [
       {
         path: "",
         name: "SigninForm",
-        component: () => import("../components/SigninForm.vue"),
+        component: () => import("../components/Login/SigninForm.vue"),
       },
       {
         path: "signup",
         name: "SignupForm",
-        component: () => import("../components/SignupForm.vue"),
+        component: () => import("../components/Login/SignupForm.vue"),
       },
     ],
   },

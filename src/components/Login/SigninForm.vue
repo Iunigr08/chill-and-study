@@ -1,15 +1,6 @@
 <template>
   <div>
     <form @submit.prevent="submit" class="input-area">
-      <div class="group username-group">
-        <input
-          v-model="username"
-          id="username"
-          type="text"
-          required="required"
-        />
-        <label for="username">お名前</label>
-      </div>
       <div class="group email-group">
         <input
           v-model="email"
@@ -18,7 +9,7 @@
           autocomplete="email"
           required="required"
         />
-        <label for="username">メールアドレス</label>
+        <label for="email">メールアドレス</label>
       </div>
       <div class="group password-group">
         <input
@@ -31,7 +22,7 @@
         <label for="password">パスワード</label>
       </div>
       <div class="button-group">
-        <button>新規登録</button>
+        <button>ログイン</button>
       </div>
     </form>
   </div>
@@ -39,23 +30,23 @@
 
 <script>
 import { mapState } from "vuex"
-import { auth } from "../main"
-import { createUserWithEmailAndPassword } from "firebase/auth"
+import { auth } from "../../main"
+import { signInWithEmailAndPassword } from "firebase/auth"
 
 export default {
   data: function () {
     return {}
   },
+  // mounted: function () {
+  //   if (this.$store.state.loginStatus) {
+  //     console.log("login redirect")
+  //     this.$route.query.redirect
+  //       ? this.$router.push(this.$route.query.redirect)
+  //       : this.$router.push("/")
+  //   }
+  // },
   computed: {
     ...mapState(["user"]),
-    username: {
-      get() {
-        return this.user.UserName
-      },
-      set(v) {
-        this.$store.commit("setUserName", v)
-      },
-    },
     email: {
       get() {
         return this.user.Email
@@ -75,23 +66,23 @@ export default {
   },
   methods: {
     submit: function () {
-      createUserWithEmailAndPassword(auth, this.email, this.password)
-        .then(() => {
-          alert(`${this.username}さんを登録しました．ようこそ，ちるスタへ！`)
-          // this.$store.commit("setUserInfo", userCredential)
-          // this.$store.dispatch("asyncSetUserInfo", userCredential).then(() => {
-          //   })
+      signInWithEmailAndPassword(auth, this.email, this.password)
+        .then((userCredential) => {
+          alert("ログインに成功しました．お帰りなさい！")
+          const user = userCredential.user
+          console.log("ログイン成功：", user.uid)
           this.$store.commit("setLoginStatus", true)
-          this.$store.dispatch("createUserDatabase")
-          this.$router.push("/")
-          console.log("Completed CreateUser")
         })
-        .catch((err) => {
-          alert("ユーザ登録に失敗しました．入力項目を確認してください．")
-          console.log("failed create user")
-          console.error(err)
+        .then(() => {
+          this.$route.query.redirect
+            ? this.$router.push(this.$route.query.redirect)
+            : this.$router.push("/")
         })
-      return null
+        .catch((error) => {
+          alert("Eメール，パスワードに誤りがあります．")
+          console.error(error.message)
+          this.$router.push("/login")
+        })
     },
   },
 }
@@ -139,7 +130,7 @@ export default {
 }
 .group input:focus + label,
 .group input:valid + label {
-  top: -1rem;
+  top: -1.2rem;
   left: 0.8rem;
   font-size: 1.2rem;
   background-color: var(--bgcolor);

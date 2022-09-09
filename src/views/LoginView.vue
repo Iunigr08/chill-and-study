@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import TheGlobalHeader from "../components/TheGlobalHeader.vue"
+import TheGlobalHeader from "../components/Flame/TheGlobalHeader.vue"
 
 export default {
   name: "LoginView",

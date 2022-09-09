@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { auth } from "../main"
+import { auth } from "../../main"
 import { signOut } from "firebase/auth"
 
 export default {

@@ -54,7 +54,7 @@
 <script>
 import DashboardDispGraph from "./Board/DashboardDispGraph.vue"
 import DashboardEditPreset from "./Board/DashboardEditPreset.vue"
-import DashboardDispTime from "../DashboardDispTime.vue"
+import DashboardDispTime from "./Record/DashboardDispTime.vue"
 import DashboardSumTime from "./Board/DashBoardSumTime.vue"
 
 export default {

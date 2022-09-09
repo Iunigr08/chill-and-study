@@ -10,7 +10,7 @@ const routes = [
       {
         path: "",
         name: "TimerScreen",
-        component: () => import("../components/TimerScreen.vue"),
+        component: () => import("../components/Timer/TimerScreen.vue"),
       },
       {
         path: "/timerset",

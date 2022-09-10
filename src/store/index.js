@@ -8,8 +8,8 @@ export default createStore({
     user: {
       uid: "",
       UserName: "",
-      Email: "sofeng.gr08@gmail.com",
-      Password: "qwertyu",
+      Email: "",
+      Password: "",
       Preset: [
         [[0, 25, 0], [0, 5, 0], 1],
         [[0, 50, 0], [0, 10, 0], 2],

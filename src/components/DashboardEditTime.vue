@@ -223,7 +223,10 @@ export default {
         ) {
           this.sum_work_time_data[i] += this.disp_time_data[lap_count][0][i]
           if (this.disp_time_data[lap_count].length == 2) {
-            this.sum_chill_time_data[i] += this.disp_time_data[lap_count][1][i]
+            if (this.disp_time_data[lap_count][1] != null) {
+              this.sum_chill_time_data[i] +=
+                this.disp_time_data[lap_count][1][i]
+            }
           }
           if (i != 0) {
             if (this.sum_work_time_data[i] > 59) {

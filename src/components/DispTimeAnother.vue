@@ -5,7 +5,7 @@
         {{ prop_disp_time_another[0] }}
       </span>
       <span class="hour_unit unit">h</span>
-      <span class="hour_time">
+      <span class="min_time">
         {{ prop_disp_time_another[1] }}
       </span>
       <span class="min_unit unit">m</span>

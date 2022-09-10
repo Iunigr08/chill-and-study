@@ -57,6 +57,7 @@
       <!-- プリセットボタン欄 -->
       <div class="flex_preset_box">
         <div class="preset_button_box">
+          <i class="ri-bookmark-fill"></i>
           <!-- プリセットボタン1 -->
           <button class="preset1_button preset_button" @click="preset1">
             <span class="hour">
@@ -99,13 +100,12 @@
       </div>
 
       <!-- 送信ボタン欄 -->
-      <div class="flex_go_button">
-        <div class="goButton">
-          <router-link
-            :to="{ name: 'TimerScreen', query: { prop_time: timeState } }"
-            >OK</router-link
-          >
-        </div>
+      <div class="goButton">
+        <router-link
+          class="go_timer_screen"
+          :to="{ name: 'TimerScreen', query: { prop_time: timeState } }"
+          >OK</router-link
+        >
       </div>
     </div>
   </div>
@@ -269,20 +269,34 @@ export default {
   align-content: center;
   inline-size: 100%;
 }
-.hour {
-  margin: 10% 5%;
+.ri-bookmark-fill {
+  color: white;
+  position: absolute;
+  margin-top: 0.7rem;
+  margin-left: 0.5rem;
 }
-.min {
-  margin: 10% 5%;
-}
-.sec {
-  margin: 10% 0%;
+.preset_button_box >>> .content {
+  text-align: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 .preset_button {
   display: inline;
-  padding: 1% 5%;
+  padding: 1.5rem 4rem;
   border: none;
   outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.hour {
+  font-size: 2rem;
+}
+.min {
+  font-size: 1.5rem;
+}
+.lap {
+  font-size: 1.5rem;
 }
 /* .preset1_button {
 } */
@@ -311,18 +325,17 @@ export default {
 }
 /* .preset3_button {
 } */
-.flex_go_button {
-  justify-content: center;
-  align-content: center;
-  text-align: center;
-  margin: 5%;
-}
 .goButton {
-  display: inline-block;
-  width: 10%;
-  text-align: center;
+  margin-left: 45%;
+  margin-right: 45%;
+  margin-top: 3%;
   border-radius: 5%/20%;
   background-color: var(--text-default-green);
   color: white;
+  width: 10%;
+}
+.go_timer_screen {
+  display: block;
+  padding: 0.4rem 2rem;
 }
 </style>

@@ -166,6 +166,7 @@ export default {
 <style scoped>
 .container {
   /* background-color: var(--bgcolor); */
+  background-color: transparent;
   justify-content: center;
   align-content: center;
   text-align: left;
@@ -186,14 +187,6 @@ export default {
 .sec_box {
   position: relative;
 }
-.arrow {
-  display: inline-block;
-  position: relative;
-
-  width: 0.6rem;
-  /* position: absolute; */
-  /* right: 0; */
-}
 select {
   border-top: none;
   border-bottom: none;
@@ -204,6 +197,7 @@ select {
   font-size: 100%;
   color: var(--text-deeper-green);
   /* background-color: var(--bgcolor); */
+  background-color: transparent;
 
   height: 100%;
   /* display: block; */
@@ -261,7 +255,7 @@ i {
   position: relative;
   color: var(--text-light-green);
   font-size: 50%;
-  left: -30%;
+  /* left: -1rem; */
   vertical-align: -30%;
 
   /* left: 70%; */
@@ -271,6 +265,7 @@ i {
   /* vertical-align: 5%; */
   /* margin-right: 3%; */
 
-  margin: 0 4% 0 2%;
+  margin-left: 2%;
+  margin-right: 4%;
 }
 </style>

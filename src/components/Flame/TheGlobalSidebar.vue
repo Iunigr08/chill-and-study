@@ -188,8 +188,10 @@ span.router-a--title {
 }
 .link--active,
 .link--active:hover {
-  color: var(--text-deep-green);
-  background-color: var(--bg-gray);
+  /* color: var(--text-deep-green); */
+  /* background-color: var(--bg-gray); */
+  color: white;
+  background-color: var(--text-default-green);
 }
 .link--active::before,
 .link-active:hover::before {

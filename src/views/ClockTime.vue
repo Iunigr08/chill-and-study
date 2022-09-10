@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import HomeLayout from "../components/HomeLayout.vue"
+import HomeLayout from "../components/Flame/HomeLayout.vue"
 // import Success from "../components/SoundModule.vue"
-import ClockState from "../components/ClockState.vue"
+import ClockState from "../components/Clock/ClockState.vue"
 
 export default {
   name: "ClockTime",

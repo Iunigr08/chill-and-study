@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import DispTimeAnother from "../components/DispTimeAnother.vue"
+import DispTimeAnother from "../../Disp/DispTimeAnother.vue"
 export default {
   components: {
     DispTimeAnother,

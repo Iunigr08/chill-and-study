@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import HomeLayout from "../components/HomeLayout.vue"
-import DashboardData from "../components/DashboardData.vue"
+import HomeLayout from "../components/Flame/HomeLayout.vue"
+import DashboardData from "../components/Dashboard/DashboardData.vue"
 
 export default {
   name: "DashBoard",

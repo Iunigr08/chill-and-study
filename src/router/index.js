@@ -10,12 +10,12 @@ const routes = [
       {
         path: "",
         name: "TimerScreen",
-        component: () => import("../components/TimerScreen.vue"),
+        component: () => import("../components/Timer/TimerScreen.vue"),
       },
       {
         path: "/timerset",
         name: "TimerSetting",
-        component: () => import("../components/TimerSetting.vue"),
+        component: () => import("../components/Timer/TimerSetting.vue"),
       },
     ],
   },
@@ -38,12 +38,12 @@ const routes = [
       {
         path: "",
         name: "SigninForm",
-        component: () => import("../components/SigninForm.vue"),
+        component: () => import("../components/Login/SigninForm.vue"),
       },
       {
         path: "signup",
         name: "SignupForm",
-        component: () => import("../components/SignupForm.vue"),
+        component: () => import("../components/Login/SignupForm.vue"),
       },
     ],
   },

@@ -2,7 +2,7 @@
   <div class="global-header">
     <div class="logo">
       <router-link to="/" class="logo--router">
-        <img src="../assets/title_logo5.svg" alt="CS" class="logo--img" />
+        <img src="../../assets/title_logo5.svg" alt="CS" class="logo--img" />
         <p class="logo--text">ちるスタ</p>
       </router-link>
     </div>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { auth } from "../main"
+import { auth } from "../../main"
 import { signOut } from "firebase/auth"
 
 export default {

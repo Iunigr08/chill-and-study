@@ -4,13 +4,15 @@
     <div class="head_title">
       <h3>ワークタイムの合計</h3>
     </div>
-    <div class="disp_today">
-      <p>今日 {{ today_date }}</p>
-      <DispTimeAnother :prop_disp_time_another="today" />
-    </div>
-    <div class="disp_week">
-      <p>今週 {{ week_date }}</p>
-      <DispTimeAnother :prop_disp_time_another="week" />
+    <div class="disp_around">
+      <div class="disp_today">
+        <p>今日 {{ today_date }}</p>
+        <DispTimeAnother :prop_disp_time_another="today" />
+      </div>
+      <div class="disp_week">
+        <p>今週 {{ week_date }}</p>
+        <DispTimeAnother :prop_disp_time_another="week" />
+      </div>
     </div>
   </div>
 </template>
@@ -142,33 +144,47 @@ export default {
   color: var(--text-deeper-green);
   margin-bottom: 3%;
 }
+.disp_around {
+  width: 90%;
+  margin: auto;
+}
 .disp_today {
   color: var(--text-deeper-green);
   margin-bottom: 3%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: baseline;
 }
 .disp_today p {
+  width: 40%;
   font-size: 80%;
+  align-items: flex-end;
 }
 .disp_today .content {
   font-size: 150%;
   position: relative;
-  left: 5%;
+  /* left: 5%; */
 }
 .disp_today >>> .unit {
-  color: var(--text-light-green);
+  color: var(--text-deeper-green);
 }
 .disp_week {
   color: var(--text-deeper-green);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: baseline;
 }
 .disp_week p {
+  width: 40%;
   font-size: 80%;
+  align-items: flex-end;
 }
 .disp_week .content {
   font-size: 150%;
   position: relative;
-  left: 5%;
+  /* left: 5%; */
 }
 .disp_week >>> .unit {
-  color: var(--text-light-green);
+  color: var(--text-deeper-green);
 }
 </style>

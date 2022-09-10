@@ -89,6 +89,7 @@ select {
   color: var(--text-deeper-green);
   background-color: var(--bgcolor);
   vertical-align: -5%;
+  cursor: pointer;
 }
 i {
   position: relative;

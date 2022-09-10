@@ -1,345 +1,136 @@
 <template>
   <!-- 外枠 -->
-  <div class="content">
-    <!-- 表示枠 -->
-    <div class="disp_flame">
-      <div class="head_box">
-        <!-- 表示プリセットの選択枠 -->
-        <div class="select_disp_preset_num">
-          <select name="selectPreset" v-model="selectedPreset">
-            <option v-for="item in presets" :value="item.id" :key="item.id">
-              {{ item.label }}
-            </option>
-          </select>
-          <span class="arrow">
-            <i class="ri-arrow-down-s-fill arrow_of_hour"></i>
+  <div class="outer-content">
+    <div class="disp-flame">
+      <!-- トップフレーム -->
+      <div class="top_flame">
+        <!-- タイトル -->
+        <div class="top-title">プリセットを編集する</div>
+        <!-- プリセット選択枠 -->
+        <div class="select-preset-flame">
+          <!-- ボタン1 -->
+          <button
+            class="select-preset-button preset1-button"
+            @click="changePreset(0)"
+          >
+            1
+          </button>
+          <!-- ボタン2 -->
+          <button
+            class="select-preset-button preset2-button"
+            @click="changePreset(1)"
+          >
+            2
+          </button>
+          <!-- ボタン3 -->
+          <button
+            class="select-preset-button preset3-button"
+            @click="changePreset(2)"
+          >
+            3
+          </button>
+        </div>
+      </div>
+      <!-- センター -->
+      <div class="disp-time-flame">
+        <!-- 集中時間 -->
+        <div class="work-time-select">
+          <span class="time-title">ワークタイム</span>
+          <span>
+            <SelectTime
+              :prop_select_time="dispPreset[selectedPreset][0]"
+              :prop_index_num="2"
+              :prop_index1="selectedPreset"
+              :prop_index2="0"
+              @emit_event="change_time"
+            />
           </span>
         </div>
-        <!-- 編集・セーブ・リセット・キャンセルボタン -->
-        <div class="select_edit_box">
-          <span class="input_button_edit flex_input" v-if="!edit_time_now">
-            <input type="button" value="編集する" @click="edit_time" />
-            <i class="ri-arrow-down-s-fill arrow_of_hour"></i>
-          </span>
-          <span class="input_button_save flex_input" v-if="edit_time_now">
-            <input type="button" value="セーブ" @click="save_edited_time" />
-            <i class="ri-arrow-down-s-fill arrow_of_hour"></i>
-          </span>
-          <span class="input_button_reset flex_input" v-if="edit_time_now">
-            <input type="button" value="リセット" @click="reset_edited_time" />
-            <i class="ri-arrow-down-s-fill arrow_of_hour"></i>
-          </span>
-          <span class="input_button_cancel flex_input" v-if="edit_time_now">
-            <input
-              type="button"
-              value="キャンセル"
-              @click="cancel_edited_time"
+        <!-- 休憩時間 -->
+        <div class="chill-time-select">
+          <span class="time-title">ちるタイム</span>
+          <span>
+            <SelectTime
+              :prop_select_time="dispPreset[selectedPreset][1]"
+              :prop_index_num="2"
+              :prop_index1="selectedPreset"
+              :prop_index2="1"
+              @emit_event="change_time"
             />
-            <i class="ri-arrow-down-s-fill arrow_of_hour"></i>
+          </span>
+        </div>
+        <!-- 周回数 -->
+        <div class="lap-num-select">
+          <span class="time-title">ラップ数</span>
+          <span>
+            <SelectLap
+              :prop_select_lap="dispPreset[selectedPreset][2]"
+              :prop_index="selectedPreset"
+              @emit_event_lap="change_lap"
+            />
           </span>
         </div>
       </div>
-      <div class="center_box">
-        <!-- 表示モード -->
-        <div class="disp_mode" v-if="!edit_time_now">
-          <!-- プリセット1 -->
-          <div class="preset1" v-if="isPreset1">
-            <div class="work_time">
-              <span class="name_time">ワークタイム</span>
-              <span>
-                <DispTime
-                  class="font_size_timer"
-                  :prop_disp_time="dispPreset[0][0]"
-                />
-              </span>
-            </div>
-            <div class="chill_time">
-              <span class="name_time">ちるタイム</span>
-              <span>
-                <DispTime
-                  class="font_size_timer"
-                  :prop_disp_time="dispPreset[0][1]"
-                />
-              </span>
-            </div>
-            <div class="lap_num">
-              <span class="name_time">ラップ数</span>
-              <span>
-                <DispLap
-                  class="font_size_timer"
-                  :prop_disp_lap="dispPreset[0][2]"
-                />
-              </span>
-            </div>
-          </div>
-          <!-- プリセット2 -->
-          <div class="preset2" v-if="isPreset2">
-            <div class="work_time">
-              <span class="name_time">ワークタイム</span>
-              <span>
-                <DispTime
-                  class="font_size_timer"
-                  :prop_disp_time="dispPreset[1][0]"
-                />
-              </span>
-            </div>
-            <div class="chill_time">
-              <span class="name_time">ちるタイム</span>
-              <span>
-                <DispTime
-                  class="font_size_timer"
-                  :prop_disp_time="dispPreset[1][1]"
-                />
-              </span>
-            </div>
-            <div class="lap_num">
-              <span class="name_time">ラップ数</span>
-              <span>
-                <DispLap
-                  class="font_size_timer"
-                  :prop_disp_lap="dispPreset[1][2]"
-                />
-              </span>
-            </div>
-          </div>
-          <!-- プリセット3 -->
-          <div class="preset3" v-if="isPreset3">
-            <div class="work_time">
-              <span class="name_time">ワークタイム</span>
-              <span>
-                <DispTime
-                  class="font_size_timer"
-                  :prop_disp_time="dispPreset[2][0]"
-                />
-              </span>
-            </div>
-            <div class="chill_time">
-              <span class="name_time">ちるタイム</span>
-              <span>
-                <DispTime
-                  class="font_size_timer"
-                  :prop_disp_time="dispPreset[2][1]"
-                />
-              </span>
-            </div>
-            <div class="lap_num">
-              <span class="name_time">ラップ数</span>
-              <span>
-                <DispLap
-                  class="font_size_timer"
-                  :prop_disp_lap="dispPreset[2][2]"
-                />
-              </span>
-            </div>
-          </div>
-        </div>
-        <!-- 編集モード -->
-        <div class="edit_mode" v-if="edit_time_now">
-          <!-- プリセット1 -->
-          <div class="preset1" v-if="isPreset1">
-            <!-- 集中時間 -->
-            <div class="work_time_select work_time">
-              <span class="name_time">ワークタイム</span>
-              <span>
-                <SelectTime
-                  class="font_size_timer"
-                  :prop_select_time="dispPreset[0][0]"
-                  :prop_index_num="2"
-                  :prop_index1="0"
-                  :prop_index2="0"
-                  @emit_event="change_time"
-                />
-              </span>
-            </div>
-            <!-- 休憩時間 -->
-            <div class="chill_time_select chill_time">
-              <span class="name_time">ちるタイム</span>
-              <span>
-                <SelectTime
-                  class="font_size_timer"
-                  :prop_select_time="dispPreset[0][1]"
-                  :prop_index_num="2"
-                  :prop_index1="0"
-                  :prop_index2="1"
-                  @emit_event="change_time"
-                />
-              </span>
-            </div>
-            <!-- 周回数 -->
-            <div class="lap_num_select lap_num">
-              <span class="name_time">ラップ数</span>
-              <span>
-                <SelectLap
-                  class="font_size_timer"
-                  :prop_select_lap="dispPreset[0][2]"
-                  :prop_index="0"
-                  @emit_event_lap="change_lap"
-                />
-              </span>
-            </div>
-          </div>
-          <!-- プリセット2 -->
-          <div class="preset2" v-if="isPreset2">
-            <!-- 集中時間 -->
-            <div class="work_time_select work_time">
-              <span class="name_time">ワークタイム</span>
-              <span>
-                <SelectTime
-                  class="font_size_timer"
-                  :prop_select_time="dispPreset[1][0]"
-                  :prop_index_num="2"
-                  :prop_index1="1"
-                  :prop_index2="0"
-                  @emit_event="change_time"
-                />
-              </span>
-            </div>
-            <!-- 休憩時間 -->
-            <div class="chill_time_select chill_time">
-              <span class="name_time">ちるタイム</span>
-              <span>
-                <SelectTime
-                  class="font_size_timer"
-                  :prop_select_time="dispPreset[1][1]"
-                  :prop_index_num="2"
-                  :prop_index1="1"
-                  :prop_index2="1"
-                  @emit_event="change_time"
-                />
-              </span>
-            </div>
-            <!-- 周回数 -->
-            <div class="lap_num_select lap_num">
-              <span class="name_time">ラップ数</span>
-              <span>
-                <SelectLap
-                  class="font_size_timer"
-                  :prop_select_lap="dispPreset[1][2]"
-                  :prop_index="1"
-                  @emit_event_lap="change_lap"
-                />
-              </span>
-            </div>
-          </div>
-          <!-- プリセット3 -->
-          <div class="preset3" v-if="isPreset3">
-            <!-- 集中時間 -->
-            <div class="work_time_select work_time">
-              <span class="name_time">ワークタイム</span>
-              <span>
-                <SelectTime
-                  class="font_size_timer"
-                  :prop_select_time="dispPreset[2][0]"
-                  :prop_index_num="2"
-                  :prop_index1="2"
-                  :prop_index2="0"
-                  @emit_event="change_time"
-                />
-              </span>
-            </div>
-            <!-- 休憩時間 -->
-            <div class="chill_time_selec chill_time">
-              <span class="name_time">ちるタイム</span>
-              <span>
-                <SelectTime
-                  class="font_size_timer"
-                  :prop_select_time="dispPreset[2][1]"
-                  :prop_index_num="2"
-                  :prop_index1="2"
-                  :prop_index2="1"
-                  @emit_event="change_time"
-                />
-              </span>
-            </div>
-            <!-- 周回数 -->
-            <div class="lap_num_select lap_num">
-              <span class="name_time">ラップ数</span>
-              <span>
-                <SelectLap
-                  class="font_size_timer"
-                  :prop_select_lap="dispPreset[2][2]"
-                  :prop_index="2"
-                  @emit_event_lap="change_lap"
-                />
-              </span>
-            </div>
-          </div>
-        </div>
+      <!-- ボトム -->
+      <div class="bottom-flame">
+        <!-- 保存・リセット・キャンセルボタン -->
+        <button class="save-button" @click="saveEditedTime">保存</button>
+        <button class="reset-button" @click="resetEditedTime">リセット</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import DispTime from "../../Disp/DispTime.vue"
-import DispLap from "../../Disp/DispLap.vue"
 import SelectTime from "../../Select/SelectTime.vue"
 import SelectLap from "../../Select/SelectLap.vue"
 
 export default {
   components: {
-    DispTime,
-    DispLap,
     SelectTime,
     SelectLap,
   },
 
   data: function () {
     return {
-      // 表示・編集モード切り替え
-      edit_time_now: false,
-
-      // プリセット編集前を保存しておく
-      temp: null,
-
-      // 選択肢
-      presets: [
-        { id: 1, label: "プリセット1" },
-        { id: 2, label: "プリセット2" },
-        { id: 3, label: "プリセット3" },
-      ],
-      // 初期はプリセット1を表示
-      selectedPreset: 1,
-
-      // 表示・編集用の配列
+      // 表示用の配列
       dispPreset: null,
+
+      // 表示するプリセットの番号
+      selectedPreset: 0,
+
+      // 編集前のプリセット用配列
+      tempPreset: null,
     }
   },
 
+  // propsでプリセットデータを受け取る
   props: {
     props_preset: { Type: Array },
   },
 
   created: function () {
-    // ストアからプリセットデータを受け取る
-    console.log("presets")
+    // propsで受け取ったプリセットデータをディープコピーする
     this.dispPreset = JSON.parse(JSON.stringify(this.props_preset))
   },
 
   methods: {
-    // プリセット編集モード
-    edit_time: function () {
-      this.edit_time_now = true
-      this.temp = JSON.parse(JSON.stringify(this.dispPreset))
+    // 選択したプリセット番号を反映
+    changePreset(n) {
+      this.selectedPreset = n
     },
 
-    // プリセットセーブ
-    save_edited_time: function () {
+    // セーブ
+    saveEditedTime: function () {
+      // 保存関数の呼び出し
       this.toStore()
-      this.temp = null
-      this.edit_time_now = false
+      // 編集前のプリセットデータをコピーしておく
+      this.tempPreset = JSON.parse(JSON.stringify(this.dispPreset))
     },
 
-    // プリセットリセット
-    reset_edited_time: function () {
-      this.dispPreset = JSON.parse(JSON.stringify(this.temp))
-    },
-
-    // プリセットキャンセル
-    cancel_edited_time: function () {
-      this.reset_edited_time()
-      this.temp = null
-      this.edit_time_now = false
+    // リセット
+    resetEditedTime: function () {
+      this.dispPreset = JSON.parse(JSON.stringify(this.tempPreset))
     },
 
     // 変更をストアとデータベースに反映
@@ -347,7 +138,7 @@ export default {
       this.$emit("emit_data", this.dispPreset)
     },
 
-    // セレクトコンポーネントからの変更を反映させる
+    // セレクトコンポーネントからの変更をそれぞれ反映させる
     change_time(prop_index1, prop_index2, temp) {
       this.dispPreset[prop_index1][prop_index2] = JSON.parse(
         JSON.stringify(temp)
@@ -356,133 +147,156 @@ export default {
     change_lap(prop_index, selectedLap) {
       this.dispPreset[prop_index][2] = JSON.parse(JSON.stringify(selectedLap))
     },
-  },
 
-  computed: {
-    isPreset1() {
-      return this.selectedPreset === 1
+    // プリセットボタンの色を動的に変更する
+    preset_button1_bgcolor: function () {
+      if (this.selectedPreset == 0) {
+        return "var(--text-default-green)"
+      } else {
+        return "white"
+      }
     },
-    isPreset2() {
-      return this.selectedPreset === 2
+    preset_button1_color: function () {
+      if (this.selectedPreset == 0) {
+        return "white"
+      } else {
+        return "var(--text-default-green)"
+      }
     },
-    isPreset3() {
-      return this.selectedPreset === 3
+    preset_button2_bgcolor: function () {
+      if (this.selectedPreset == 1) {
+        return "var(--text-default-green)"
+      } else {
+        return "white"
+      }
+    },
+    preset_button2_color: function () {
+      if (this.selectedPreset == 1) {
+        return "white"
+      } else {
+        return "var(--text-default-green)"
+      }
+    },
+    preset_button3_bgcolor: function () {
+      if (this.selectedPreset == 2) {
+        return "var(--text-default-green)"
+      } else {
+        return "white"
+      }
+    },
+    preset_button3_color: function () {
+      if (this.selectedPreset == 2) {
+        return "white"
+      } else {
+        return "var(--text-default-green)"
+      }
     },
   },
 }
 </script>
 
 <style scoped>
-.content {
+.outer-content {
   width: 100%;
   background-color: white;
 }
-.disp_flame {
-  width: 100%;
-  /* background-color: white; */
-  display: inline-block;
-  inline-size: 100%;
+.disp-flame {
+  padding: 2rem; /* <----後で調節する */
 }
-.head_box {
-  display: flex;
-  justify-content: left;
-  align-items: flex-end;
-  text-align: center;
-  margin-top: 2%;
-  margin-left: 2%;
-}
-.select_disp_preset_num {
-  display: inherit;
-  background-color: var(--bg-button-gray);
-  border-radius: 5%/20%;
-  height: 3rem;
-  margin-right: 5%;
-}
-.select_disp_preset_num select {
-  background-color: var(--bg-button-gray);
-  border-top: none;
-  border-bottom: none;
-  border-left: none;
-  border-right: none;
-  appearance: none;
-  border-radius: 5%/20%;
-}
-.select_edit_box {
-  display: flex;
-  gap: 5%;
-  height: 3rem;
-}
-.flex_input {
-  display: flex;
-  font-size: 150%;
-}
-.input_button_edit {
-  background-color: var(--bg-button-gray);
-  border-radius: 5%/30%;
-}
-.input_button_save {
-  background-color: var(--bg-button-gray);
-  border-radius: 5%/30%;
-}
-.input_button_reset {
-  background-color: var(--bg-button-gray);
-  border-radius: 5%/30%;
-}
-.input_button_cancel {
-  background-color: var(--bg-button-gray);
-  border-radius: 5%/30%;
-}
-.arrow {
-  left: 5%;
-}
-.ri-arrow-down-s-fill {
-  position: relative;
-  left: -10%;
-  top: 0%;
-}
-.select_edit_box input {
-  background-color: var(--bg-button-gray);
-  border-top: none;
-  border-bottom: none;
-  border-left: none;
-  border-right: none;
-  appearance: none;
-  border-radius: 5%/30%;
-  margin: 5%;
-  font-size: 50%;
-}
-.center_box {
+.top-title {
   color: var(--text-deeper-green);
+  font-weight: bold;
+  font-size: 2rem;
+  margin: 1rem 0;
 }
-.work_time {
+.select-preset-button {
+  appearance: none;
+  border: none;
+  margin: 1rem;
+  border-radius: 15px;
+  width: 6rem;
+  height: 3rem;
+  font-size: 1.8rem;
+}
+.preset1-button {
+  background-color: v-bind("preset_button1_bgcolor()");
+  color: v-bind("preset_button1_color()");
+}
+.preset1-button:hover {
+  border: 3px solid var(--text-light-green);
+}
+.preset2-button {
+  background-color: v-bind("preset_button2_bgcolor()");
+  color: v-bind("preset_button2_color()");
+}
+.preset2-button:hover {
+  border: 3px solid var(--text-light-green);
+}
+.preset3-button {
+  background-color: v-bind("preset_button3_bgcolor()");
+  color: v-bind("preset_button3_color()");
+}
+.preset3-button:hover {
+  border: 3px solid var(--text-light-green);
+}
+.time-title {
+  color: var(--text-deeper-green);
+  margin-right: 5rem;
+}
+.work-time-select {
   display: flex;
-  justify-content: left;
+  align-content: center;
+  /* justify-content: center; */
   align-items: center;
-  text-align: center;
+  margin: 1rem 0;
 }
-.chill_time {
+.chill-time-select {
   display: flex;
-  justify-content: left;
+  align-content: center;
+  /* justify-content: center; */
   align-items: center;
-  text-align: center;
+  margin: 1rem 0;
 }
-.lap_num {
+.lap-num-select {
   display: flex;
-  justify-content: left;
+  align-content: center;
+  /* justify-content: center; */
   align-items: center;
-  text-align: center;
+  margin: 1rem 0;
 }
-.font_size_timer {
-  font-size: 200%;
-  inline-size: 100%;
-  white-space: nowrap;
+.lap-num-select >>> .container {
   background-color: white;
 }
-.name_time {
-  white-space: nowrap;
-  width: 40%;
-  justify-items: left;
-  text-align: center;
+.bottom-flame {
+  margin: 3rem 0;
+  display: flex;
   align-content: center;
+  justify-content: center;
+  align-items: center;
+  gap: 8rem;
+}
+.save-button {
+  color: var(--text-default-green);
+  border-radius: 15px;
+  border: 2px solid var(--text-default-green);
+  width: 10rem;
+  padding: 0.2rem 0;
+}
+.save-button:hover {
+  background-color: var(--text-deeper-green);
+  color: white;
+  transition: 0.4s;
+}
+.reset-button {
+  color: var(--text-default-green);
+  border-radius: 15px;
+  border: 2px solid var(--text-default-green);
+  width: 10rem;
+  padding: 0.2rem 0;
+}
+.reset-button:hover {
+  background-color: var(--text-deeper-green);
+  color: white;
+  transition: 0.4s;
 }
 </style>

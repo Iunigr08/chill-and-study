@@ -34,15 +34,15 @@
       <!-- センター -->
       <div class="disp-time-flame">
         <div class="time-title">
-          <span class="gird-left1">ワークタイム</span>
-          <span class="gird-left2">ちるタイム</span>
-          <span class="gird-left3">ラップ数</span>
+          <span class="title-worktime">ワークタイム</span>
+          <span class="title-chilltime">ちるタイム</span>
+          <span class="title-lapnum">ラップ数</span>
         </div>
         <div class="disp-time">
           <!-- 集中時間 -->
           <span>
             <SelectTime
-              class="gird-right1"
+              class="select-worktime"
               :prop_select_time="dispPreset[selectedPreset][0]"
               :prop_index_num="2"
               :prop_index1="selectedPreset"
@@ -53,7 +53,7 @@
           <!-- 休憩時間 -->
           <span>
             <SelectTime
-              class="gird-right2"
+              class="select-chilltime"
               :prop_select_time="dispPreset[selectedPreset][1]"
               :prop_index_num="2"
               :prop_index1="selectedPreset"
@@ -64,7 +64,7 @@
           <!-- 周回数 -->
           <span>
             <SelectLap
-              class="gird-right3"
+              class="select-lapnum"
               :prop_select_lap="dispPreset[selectedPreset][2]"
               :prop_index="selectedPreset"
               @emit_event_lap="change_lap"
@@ -246,6 +246,7 @@ export default {
   justify-content: center;
   align-items: center;
   margin: 1em auto;
+  font-size: 3rem;
 }
 .time-title {
   display: flex;
@@ -261,7 +262,7 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.lap-num-select >>> .container {
+.disp-time >>> .select-lapnum {
   background-color: white;
 }
 .bottom-flame {

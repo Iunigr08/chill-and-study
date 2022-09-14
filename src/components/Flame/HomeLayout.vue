@@ -5,6 +5,7 @@
       class="sidebar"
       :class="menuIsFolded ? 'menu-folded' : 'menu-unfolded'"
     ></TheGlobalSidebar>
+    <!-- スマホ用のサイドバー作るかー．．． -->
     <div class="main-content">
       <slot></slot>
     </div>
@@ -90,6 +91,32 @@ export default {
   grid-row: 2/3;
   grid-column: 2/3;
   height: 100%;
+  height: calc(100% - 5rem);
   font-size: 2rem;
+}
+
+@media screen and (max-width: 560px) {
+  .home-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: 4rem 1fr;
+  }
+
+  .header {
+    grid-row: 1/2;
+    grid-column: 1/2;
+    height: 4rem;
+  }
+
+  .sidebar {
+    grid-row: 2/3;
+    grid-column: 1/2;
+    display: none;
+  }
+
+  .main-content {
+    grid-row: 2/3;
+    grid-column: 1/2;
+    height: calc(100% - 4rem);
+  }
 }
 </style>

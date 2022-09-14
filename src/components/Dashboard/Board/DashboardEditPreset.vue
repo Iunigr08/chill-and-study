@@ -33,11 +33,16 @@
       </div>
       <!-- センター -->
       <div class="disp-time-flame">
-        <!-- 集中時間 -->
-        <div class="work-time-select">
-          <span class="time-title">ワークタイム</span>
+        <div class="time-title">
+          <span class="gird-left1">ワークタイム</span>
+          <span class="gird-left2">ちるタイム</span>
+          <span class="gird-left3">ラップ数</span>
+        </div>
+        <div class="disp-time">
+          <!-- 集中時間 -->
           <span>
             <SelectTime
+              class="gird-right1"
               :prop_select_time="dispPreset[selectedPreset][0]"
               :prop_index_num="2"
               :prop_index1="selectedPreset"
@@ -45,12 +50,10 @@
               @emit_event="change_time"
             />
           </span>
-        </div>
-        <!-- 休憩時間 -->
-        <div class="chill-time-select">
-          <span class="time-title">ちるタイム</span>
+          <!-- 休憩時間 -->
           <span>
             <SelectTime
+              class="gird-right2"
               :prop_select_time="dispPreset[selectedPreset][1]"
               :prop_index_num="2"
               :prop_index1="selectedPreset"
@@ -58,12 +61,10 @@
               @emit_event="change_time"
             />
           </span>
-        </div>
-        <!-- 周回数 -->
-        <div class="lap-num-select">
-          <span class="time-title">ラップ数</span>
+          <!-- 周回数 -->
           <span>
             <SelectLap
+              class="gird-right3"
               :prop_select_lap="dispPreset[selectedPreset][2]"
               :prop_index="selectedPreset"
               @emit_event_lap="change_lap"
@@ -239,36 +240,32 @@ export default {
 .preset3-button:hover {
   border: 3px solid var(--text-light-green);
 }
+.disp-time-flame {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  margin: 1em auto;
+}
 .time-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   color: var(--text-deeper-green);
   margin-right: 5rem;
 }
-.work-time-select {
+.disp-time {
   display: flex;
-  align-content: center;
-  /* justify-content: center; */
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin: 1rem 0;
-}
-.chill-time-select {
-  display: flex;
-  align-content: center;
-  /* justify-content: center; */
-  align-items: center;
-  margin: 1rem 0;
-}
-.lap-num-select {
-  display: flex;
-  align-content: center;
-  /* justify-content: center; */
-  align-items: center;
-  margin: 1rem 0;
 }
 .lap-num-select >>> .container {
   background-color: white;
 }
 .bottom-flame {
-  margin: 3rem 0;
+  margin-top: 3rem;
   display: flex;
   align-content: center;
   justify-content: center;

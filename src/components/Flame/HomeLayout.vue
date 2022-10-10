@@ -114,6 +114,7 @@ export default {
     position: fixed;
     top: 4rem;
     left: 0;
+    z-index: 100;
   }
 
   .main-content {

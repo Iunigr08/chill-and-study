@@ -108,9 +108,12 @@ export default {
   }
 
   .sidebar {
-    grid-row: 2/3;
+    /* grid-row: 2/3;
     grid-column: 1/2;
-    display: none;
+    display: none; */
+    position: fixed;
+    top: 4rem;
+    left: 0;
   }
 
   .main-content {

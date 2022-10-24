@@ -2,6 +2,7 @@ import { createStore } from "vuex"
 import router from "../router/index.js"
 import { rootdatabase } from "@/main"
 import { ref, set, onValue, get, child, update } from "firebase/database"
+// import { collection,addDoc } from "firebase/firestore"
 
 export default createStore({
   state: {

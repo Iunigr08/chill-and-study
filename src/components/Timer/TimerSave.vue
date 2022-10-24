@@ -129,7 +129,9 @@
               <!-- 集中時間 -->
               <div class="scroll_br">
                 <div class="scroll_cont">
-                  <div><DispTime :prop_disp_time="item[0]" /></div>
+                  <div>
+                    <DispTime :prop_disp_time="item[0]" />
+                  </div>
                 </div>
                 <p class="arrow">→</p>
                 <!-- 休憩時間 -->
@@ -218,6 +220,7 @@ export default {
       reset_time_buf: [],
       //送信用データ
       send_data: {},
+      new_send_data: {},
       //メモの文字列読み取り用
       v_memo: "",
       //ラジオボタン読み取り用
@@ -276,16 +279,15 @@ export default {
       //データを作る
       //編集中に送信ボタンが押されたときに警告を出す
       if (!this.v_edit_time) {
-        this.formated_send_data()
-        console.log(this.send_data)
         var result = window.confirm("この内容で保存しますか。")
         if (result) {
+          this.formated_send_data()
           //データを送信
-          this.$store.dispatch("syncuploadnewwork", {
+          /* this.$store.dispatch("syncuploadnewwork", {
             new_data: this.send_data,
           })
           this.$store.commit("setSaveWork", this.send_data)
-          //画面を消す
+          */ //画面を消す
           this.togglePopup()
         } else {
           console.log("cancel")
@@ -344,11 +346,66 @@ export default {
         Memo: this.v_memo,
         ColorTag: this.v_radio,
       }
+      //new sendata
+      let Worktime = this.Sum_Worktime()
+      let ChillTime = this.Sum_Chilltime()
+      let work_array = this.send_work_array()
+      this.new_send_data = {
+        Date: now,
+        ColorTag: this.v_radio,
+        Memo: this.v_memo,
+        Work: work_array,
+        WorkTime: Worktime,
+        ChillTime: ChillTime,
+      }
     },
     chenge_time: function (prop_index1, prop_index2, temp) {
       this.edit_time_buf[prop_index1][prop_index2] = JSON.parse(
         JSON.stringify(temp)
       )
+    },
+    //合計休憩時間計算
+    Sum_Chilltime: function () {
+      let sum = 0
+      let coefficient = [3600, 60, 1]
+      for (let i = 2; i >= 0; i--) {
+        for (let lap_count = 0; lap_count < this.lap; lap_count++) {
+          if (this.time[lap_count][1] !== null) {
+            sum += this.time[lap_count][1][i] * coefficient[i]
+          }
+        }
+      }
+      return sum
+    },
+    Sum_Worktime: function () {
+      let sum = 0
+      let coefficient = [3600, 60, 1]
+      for (let i = 2; i >= 0; i--) {
+        for (let lap_count = 0; lap_count < this.lap; lap_count++) {
+          sum += this.time[lap_count][0][i] * coefficient[i]
+        }
+      }
+      return sum
+    },
+    //workの配列を作成
+    send_work_array: function () {
+      var work_array = []
+      for (let lap_count = 0; lap_count < this.lap; lap_count++) {
+        work_array[lap_count] =
+          ("00" + this.time[lap_count][0][0]).slice(-2) +
+          ("00" + this.time[lap_count][0][1]).slice(-2) +
+          ("00" + this.time[lap_count][0][2]).slice(-2)
+        if (this.time[lap_count][1] !== null) {
+          work_array[lap_count] =
+            work_array[lap_count] +
+            ("00" + this.time[lap_count][1][0]).slice(-2) +
+            ("00" + this.time[lap_count][1][1]).slice(-2) +
+            ("00" + this.time[lap_count][1][2]).slice(-2)
+        } else {
+          work_array[lap_count] = work_array[lap_count] + "000000"
+        }
+      }
+      return work_array
     },
   },
   //ラップ用時間文字列作成

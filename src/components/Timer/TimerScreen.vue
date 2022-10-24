@@ -66,8 +66,16 @@
               </router-link>
             </div>
           </div>
-          <!-- リセット&保存ボタン -->
+          <!-- リセット&保存ボタン + スキップボタン -->
           <div class="bottom_box">
+            <!-- スキップボタン -->
+            <button
+              class="skip_button"
+              @click="skipTimer"
+              v-if="timerPause && !isPoppingup && this.concentrationTime"
+            >
+              ちるタイムへ
+            </button>
             <!-- リセットボタン -->
             <button
               class="reset_button func-button"
@@ -86,6 +94,25 @@
             </button>
           </div>
         </div>
+        <!-- タイマー設定表示枠 -->
+        <div class="disp_timer_set" v-if="timerPause && !isPoppingup">
+          <div class="inner">
+            <div class="left_box">
+              <div>ワークタイム</div>
+              <div class="space_chilltime">ちるタイム</div>
+              <div>ラップ数</div>
+            </div>
+            <div class="right_box">
+              <div><DispTime :prop_disp_time="settedTime[0]" /></div>
+              <div class="space_chilltime">
+                <DispTime :prop_disp_time="settedTime[1]" />
+              </div>
+              <div>
+                <DispLap :prop_disp_time="settedTime[2]" />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- タイマー記録画面をポップアップ -->
       <div class="popup-setting" v-if="isPoppingup">
@@ -102,11 +129,13 @@
 <script>
 import TimerSave from "./TimerSave.vue"
 import DispTime from "../Disp/DispTime.vue"
+import DispLap from "../Disp/DispLap.vue"
 
 export default {
   components: {
     TimerSave,
     DispTime,
+    DispLap,
   },
   data: function () {
     return {
@@ -328,6 +357,18 @@ export default {
       this.togglePopup()
     },
 
+    // スキップボタンが押されたらワークタイムを0に
+    skipTimer: function () {
+      // 計測時間を計算し、データを渡す用の配列へ
+      this.calculationTime(0)
+      // 休憩時間のタイマーに上書き
+      this.dispTime = JSON.parse(JSON.stringify(this.settedTime[1]))
+      // タイマー状況を休憩時間に
+      this.concentrationTime = false
+      // タイマーのカウントダウンを開始する
+      this.startTimer()
+    },
+
     // リセットボタンが押されたら初期状態にリセット
     resetTimer: function () {
       // 表示するタイマーを最初に設定してたやつに
@@ -432,7 +473,8 @@ export default {
   color: #9eb23b;
 }
 .button_box {
-  margin-top: 20%;
+  margin-top: 10%;
+  z-index: 0;
 }
 .center_box {
   position: relative;
@@ -527,7 +569,24 @@ export default {
   position: absolute;
   margin-top: 30%;
   width: 100%;
-  left: 10%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.skip_button {
+  padding: 0.2rem 2.4rem;
+  font-size: 1.8rem;
+  color: var(--text-deep-green);
+  background-color: var(--bgcolor);
+  border: 2px solid var(--text-default-green);
+  border-radius: 30px;
+  /* margin-right: 2rem; */
+}
+.skip_button:hover {
+  background: var(--text-default-green);
+  border: 2px solid transparent;
+  color: var(--bgcolor);
+  padding: 0.2rem 2rem;
+  margin: 0 0.4rem;
 }
 .reset_button {
   padding: 0.2rem 2.4rem;
@@ -547,7 +606,7 @@ export default {
 .save_button {
   position: relative;
   /* left: 20%; */
-  left: 14%;
+  /* left: 14%; */
   padding: 0.2rem 2.4rem;
   font-size: 1.8rem;
   color: white;
@@ -557,6 +616,41 @@ export default {
 }
 .save_button:hover {
   background: var(--text-deeper-green);
+}
+.disp_timer_set {
+  z-index: 0;
+  background-color: var(--text-default-green);
+  border-radius: 10px;
+  padding: 0.01rem 1rem;
+  margin-top: 30rem;
+}
+.inner {
+  background-color: white;
+  margin: 5px;
+  padding: 1rem;
+  color: var(--text-default-green);
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+.left_box {
+  margin-right: 1rem;
+  font-weight: 400 !important;
+}
+.space_chilltime {
+  margin: 1rem 0;
+}
+.right_box {
+  margin-left: 1rem;
+}
+.right_box >>> .disp_time {
+  font-weight: 400;
+}
+.right_box >>> .displap_box {
+  color: var(--text-default-green);
+  font-weight: 400;
 }
 .popup-setting {
   /* 位置設定 */

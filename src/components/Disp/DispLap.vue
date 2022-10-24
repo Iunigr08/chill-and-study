@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>
+    <p class="displap_box">
       {{ formatDateTime }}
     </p>
   </div>

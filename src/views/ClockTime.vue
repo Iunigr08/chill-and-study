@@ -1,5 +1,6 @@
 <template>
   <HomeLayout>
+    <SelectPulldown /><!-- ------------------------------------------------------------------------------------------------- -->
     <div>
       <div class="clock-time">
         <ClockState color="deeper-green" />
@@ -20,6 +21,7 @@
 import HomeLayout from "../components/Flame/HomeLayout.vue"
 // import Success from "../components/SoundModule.vue"
 import ClockState from "../components/Clock/ClockState.vue"
+import SelectPulldown from "../components/SelectPulldown.vue" // 後で消す----------------------------------------------------------
 
 export default {
   name: "ClockTime",
@@ -27,6 +29,7 @@ export default {
     HomeLayout,
     // Success,
     ClockState,
+    SelectPulldown, // 後で消す------------------------------------------------------------------------------------------------------
   },
   data: function () {
     return {

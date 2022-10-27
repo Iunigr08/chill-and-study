@@ -264,6 +264,7 @@ i {
   position: relative;
   /* vertical-align: 5%; */
   /* margin-right: 3%; */
+  color: var(--text-deeper-green);
 
   margin-left: 2%;
   margin-right: 4%;

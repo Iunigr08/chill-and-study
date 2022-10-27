@@ -1,5 +1,9 @@
 <template>
   <HomeLayout>
+    <SelectPulldown
+      :prop_data="testData"
+      @emit_event="change_data"
+    /><!-- ------------------------------------------------------------------------------------------------- -->
     <div>
       <div class="show-time">
         <div class="item">
@@ -22,14 +26,26 @@ import ClockTime from "../components/Clock/ClockState.vue"
 // import TimerSetting from "../components/TimerSetting.vue"
 // import TimerScreen from "../components/TimerScreen.vue"
 // import TimerSave from "../components/TimerSave.vue"
+import SelectPulldown from "../components/SelectPulldown.vue" // 後で消す----------------------------------------------------------
 
 export default {
+  data: function () {
+    return {
+      testData: "102030",
+    }
+  },
+  methods: {
+    change_data: function (data) {
+      console.log(data)
+    },
+  },
   components: {
     HomeLayout,
     ClockTime,
     // TimerSetting,
     // TimerScreen,
     // TimerSave,
+    SelectPulldown, // 後で消す------------------------------------------------------------------------------------------------------
   },
 }
 </script>

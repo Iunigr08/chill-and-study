@@ -572,14 +572,14 @@ export default {
   display: flex;
   justify-content: space-evenly;
 }
-.skip_button {
+/* .skip_button {
   padding: 0.2rem 2.4rem;
   font-size: 1.8rem;
   color: var(--text-deep-green);
   background-color: var(--bgcolor);
   border: 2px solid var(--text-default-green);
   border-radius: 30px;
-  /* margin-right: 2rem; */
+  margin-right: 2rem; <-コメントアウト
 }
 .skip_button:hover {
   background: var(--text-default-green);
@@ -587,6 +587,22 @@ export default {
   color: var(--bgcolor);
   padding: 0.2rem 2rem;
   margin: 0 0.4rem;
+} */
+.skip_button {
+  padding: 0.2rem 2.4rem;
+  font-size: 1.8rem;
+  color: var(--text-deep-green);
+  background-color: var(--bgcolor);
+  border: 2px solid var(--text-default-green);
+  border-radius: 30px;
+}
+.skip_button:hover {
+  background: var(--text-default-green);
+  border: 2px solid transparent;
+  color: var(--bgcolor);
+  padding: 0.2rem 2rem;
+  margin: 0 0.4rem;
+  transition: 0.2s;
 }
 .reset_button {
   padding: 0.2rem 2.4rem;

@@ -1,7 +1,7 @@
 <template>
   <HomeLayout>
     <SelectPulldown
-      :prop_data="testData"
+      :prop_data="dispObj"
       @emit_event="change_data"
     /><!-- ------------------------------------------------------------------------------------------------- -->
     <div>
@@ -31,12 +31,16 @@ import SelectPulldown from "../components/SelectPulldown.vue" // 後で消す---
 export default {
   data: function () {
     return {
-      testData: "102030",
+      testDataArray: [10, 20, 30],
+      dispObj: {
+        key: "time",
+        dataArray: [11, 22, 33],
+      },
     }
   },
   methods: {
-    change_data: function (data) {
-      console.log(data)
+    change_data: function (dataObj) {
+      console.log(dataObj.dataArray)
     },
   },
   components: {

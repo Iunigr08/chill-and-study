@@ -78,6 +78,11 @@ export default {
     return {
       dispTimeBox: null, // true:timeを表示, false:lapを表示
       copyData: null, // propsから受け取ったデータをコピーする用
+      // propsのdefault用のobj
+      defaultObj: {
+        key: "time",
+        dataArray: [1, 2, 3],
+      },
       dispData: [0, 0, 0], // 表示するデータ:[時間, 分, 秒]
       hourSelectingMode: false, // true:選択肢表示中, false:非表示中
       minSelectingMode: false, // true:選択肢表示中, false:非表示中
@@ -87,25 +92,26 @@ export default {
 
   props: {
     prop_data: {
-      type: String,
+      type: Object,
       required: true,
-      default: () => "013015", // ex) 1時間30分15秒
+      default: () => {},
     },
   },
 
   created: function () {
-    // propsで受け取ったデータから「タイム」なのか「ラップ」なのかを場合分け
-    if (this.prop_data.length <= 2) {
-      this.dispTimeBox = false
-    } else {
-      this.dispTimeBox = true
-    }
-
     // propsで受け取った表示したいデータをディープコピー
     this.copyData = JSON.parse(JSON.stringify(this.prop_data))
+    this.dispData = JSON.parse(JSON.stringify(this.prop_data.dataArray))
+
+    // propsで受け取ったデータから「タイム」なのか「ラップ」なのかを場合分け
+    if (this.prop_data.key == "time") {
+      this.dispTimeBox = true
+    } else {
+      this.dispTimeBox = false
+    }
 
     // 表示用の配列に格納
-    this.toDivideArray()
+    // this.toDivideArray()
   },
 
   methods: {
@@ -127,18 +133,21 @@ export default {
     // 選択された値を上書きして、親にemitする
     selectedHour: function (n) {
       this.dispData[0] = n
+      this.copyData.dataArray[0] = this.dispData[0]
       this.hourSelectingMode = !this.hourSelectingMode
-      this.$emit("emit_event", this.dispData)
+      this.$emit("emit_event", this.copyData)
     },
     selectedMin: function (n) {
       this.dispData[1] = n
+      this.copyData.dataArray[1] = this.dispData[1]
       this.minSelectingMode = !this.minSelectingMode
-      this.$emit("emit_event", this.dispData)
+      this.$emit("emit_event", this.copyData)
     },
     selectedSec: function (n) {
       this.dispData[2] = n
+      this.copyData.dataArray[2] = this.dispData[2]
       this.secSelectingMode = !this.secSelectingMode
-      this.$emit("emit_event", this.dispData)
+      this.$emit("emit_event", this.copyData)
     },
   },
 
@@ -193,7 +202,7 @@ export default {
   display: block;
   background-color: var(--text-light-green);
   position: absolute;
-  left: 9.8rem;
+  left: 10rem;
   bottom: 0.5rem;
   border-radius: 5%/30%;
 }
@@ -204,7 +213,7 @@ export default {
   display: block;
   background-color: var(--text-light-green);
   position: absolute;
-  left: 19.5rem;
+  left: 20rem;
   bottom: 0.5rem;
   border-radius: 5%/30%;
 }
@@ -223,13 +232,13 @@ export default {
 }
 .select-list-min {
   position: absolute;
-  left: 8.1rem;
+  left: 10rem;
   z-index: 10;
   background-color: var(--bg-gray);
 }
 .select-list-sec {
   position: absolute;
-  left: 16.2rem;
+  left: 20.1rem;
   z-index: 10;
   background-color: var(--bg-gray);
 }
@@ -268,7 +277,7 @@ ul li:hover {
 }
 .colon {
   vertical-align: 0.4rem;
-  margin: 0 0.3rem 0 0;
+  margin: 0 0.5rem 0 0;
   font-size: 5rem;
 }
 </style>

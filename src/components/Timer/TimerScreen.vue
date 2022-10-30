@@ -591,7 +591,7 @@ export default {
 .skip_button {
   padding: 0.2rem 2.4rem;
   font-size: 1.8rem;
-  color: var(--text-deep-green);
+  color: var(--text-default-green);
   background-color: var(--bgcolor);
   border: 2px solid var(--text-default-green);
   border-radius: 30px;
@@ -607,7 +607,7 @@ export default {
 .reset_button {
   padding: 0.2rem 2.4rem;
   font-size: 1.8rem;
-  color: var(--text-deep-green);
+  color: var(--text-default-green);
   background-color: var(--bgcolor);
   border: 2px solid var(--text-default-green);
   border-radius: 30px;

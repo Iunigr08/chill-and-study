@@ -67,7 +67,23 @@
     </div>
     <!-- ラップ数表示枠 -->
     <div class="disp-select-lap" v-if="!dispTimeBox">
-      <!-- <span class="lap-box">{{lapNum}}</span> -->
+      <span class="lap-box select-box" @click="lapSelectMode">
+        {{ lapNum }}
+      </span>
+      <!-- ラップ数の矢印 -->
+      <span><i class="ri-arrow-down-s-fill arrow-icon"></i></span>
+      <div class="select-list select-list-lap" v-if="lapSelectingMode">
+        <ul>
+          <li
+            class="lists"
+            @click="selectedLap(n)"
+            v-for="n in 10"
+            v-bind:key="n"
+          >
+            {{ n }}
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -87,6 +103,7 @@ export default {
       hourSelectingMode: false, // true:選択肢表示中, false:非表示中
       minSelectingMode: false, // true:選択肢表示中, false:非表示中
       secSelectingMode: false, // true:選択肢表示中, false:非表示中
+      lapSelectingMode: false, // true:選択肢表示中, false:非表示中
     }
   },
 
@@ -109,25 +126,33 @@ export default {
     } else {
       this.dispTimeBox = false
     }
-
-    // 表示用の配列に格納
-    // this.toDivideArray()
   },
 
   methods: {
-    toDivideArray: function () {
-      this.dispData = this.copyData.match(/.{2}/g)
-    },
-
     // クリックしたら選択モードに変更
     hourSelectMode: function () {
+      if (this.minSelectingMode || this.secSelectingMode) {
+        this.minSelectingMode = false
+        this.secSelectingMode = false
+      }
       this.hourSelectingMode = !this.hourSelectingMode
     },
     minSelectMode: function () {
+      if (this.hourSelectingMode || this.secSelectingMode) {
+        this.hourSelectingMode = false
+        this.secSelectingMode = false
+      }
       this.minSelectingMode = !this.minSelectingMode
     },
     secSelectMode: function () {
+      if (this.hourSelectingMode || this.minSelectingMode) {
+        this.hourSelectingMode = false
+        this.minSelectingMode = false
+      }
       this.secSelectingMode = !this.secSelectingMode
+    },
+    lapSelectMode: function () {
+      this.lapSelectingMode = !this.lapSelectingMode
     },
 
     // 選択された値を上書きして、親にemitする
@@ -149,6 +174,12 @@ export default {
       this.secSelectingMode = !this.secSelectingMode
       this.$emit("emit_event", this.copyData)
     },
+    selectedLap: function (n) {
+      this.dispData = n
+      this.copyData.dataArray = this.dispData
+      this.lapSelectingMode = !this.lapSelectingMode
+      this.$emit("emit_event", this.copyData)
+    },
   },
 
   computed: {
@@ -161,9 +192,9 @@ export default {
     secTime: function () {
       return ("00" + this.dispData[2]).slice(-2)
     },
-    // lapNum: function () {
-    //   return ("00" + this)
-    // }
+    lapNum: function () {
+      return ("00" + this.dispData).slice(-2)
+    },
   },
 }
 </script>
@@ -279,5 +310,29 @@ ul li:hover {
   vertical-align: 0.4rem;
   margin: 0 0.5rem 0 0;
   font-size: 5rem;
+}
+.disp-select-lap {
+  color: var(--text-deeper-green);
+  font-weight: bold;
+  margin: 1rem;
+  position: relative;
+  z-index: 1;
+  justify-content: center;
+}
+.lap-box::after {
+  content: "";
+  width: 7.5rem;
+  height: 0.5rem;
+  display: block;
+  background-color: var(--text-light-green);
+  position: absolute;
+  left: 0;
+  bottom: 0.5rem;
+  border-radius: 5%/30%;
+}
+.select-list-lap {
+  position: absolute;
+  z-index: 10;
+  background-color: var(--bg-gray);
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <HomeLayout>
     <SelectPulldown
-      :prop_data="dispObj"
+      :prop_data="dispTimeObj"
       @emit_event="change_data"
     /><!-- ------------------------------------------------------------------------------------------------- -->
     <div>
@@ -32,9 +32,13 @@ export default {
   data: function () {
     return {
       testDataArray: [10, 20, 30],
-      dispObj: {
+      dispTimeObj: {
         key: "time",
         dataArray: [11, 22, 33],
+      },
+      dispLapObj: {
+        key: "lap",
+        dataArray: 5,
       },
     }
   },

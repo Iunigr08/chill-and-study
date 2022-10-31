@@ -157,6 +157,7 @@ export default {
       timerOn: false, // 計測状態
       timerPause: false, // 計測中断状態
       start_first_time: true, // スタートボタン童貞
+      infMode: false, // ラップ数が0で設定されてたら無限回モード
 
       // 初期に表示されていた時間の合計
       sumDispTime: null, // タイマー設定ボタンの表示に使用
@@ -192,6 +193,11 @@ export default {
       this.prop_time = this.toArray(this.$route.query.prop_time)
       // 受け取った時間設定をsettedTimeにコピー
       this.settedTime = JSON.parse(JSON.stringify(this.prop_time))
+      // 設定されたラップ数が0だったら無限モードに
+      if (this.settedTime[2] == 0) {
+        this.infMode = true
+        this.settedTime[2] = this.lap + 1 // 無限回続くように
+      }
     }
 
     // 集中時間をdispTimeに上書き
@@ -281,6 +287,9 @@ export default {
         this.dispTime = JSON.parse(JSON.stringify(this.settedTime[0])) // 表示を集中時間へ
         this.concentrationTime = true // タイマー状況を集中時間に
         this.lap++ // ラップ数を+1(今何ラップ目かを数えてる)
+        if (this.infMode) {
+          this.settedTime[2]++
+        }
       }
       // 休憩 -> 終了
       else {

@@ -6,6 +6,7 @@ import { sync } from "vuex-router-sync"
 import { initializeApp } from "firebase/app"
 import { getAuth } from "firebase/auth"
 import { getDatabase } from "firebase/database"
+import { initializeFirestore } from "firebase/firestore"
 // import { getAnalytics } from "firebase/analytics"
 import "remixicon/fonts/remixicon.css"
 
@@ -26,6 +27,9 @@ console.log(fbConfig)
 export const firebaseApp = initializeApp(fbConfig)
 export const auth = getAuth()
 export const rootdatabase = getDatabase(firebaseApp)
+export const rootfirestore = initializeFirestore(firebaseApp, {
+  experimentalForceLongPolling: true,
+})
 // export const analytics = getAnalytics(firebaseApp)
 // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
 

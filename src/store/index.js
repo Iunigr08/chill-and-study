@@ -1,8 +1,8 @@
 import { createStore } from "vuex"
 import router from "../router/index.js"
-import { rootdatabase } from "@/main"
+import { rootdatabase, rootfirestore } from "@/main"
 import { ref, set, onValue, get, child, update } from "firebase/database"
-// import { collection,addDoc } from "firebase/firestore"
+import { collection, addDoc, doc, getDoc } from "firebase/firestore"
 
 export default createStore({
   state: {
@@ -240,29 +240,23 @@ export default createStore({
       })
     },
     //新しいワークをデータベースに登録
-    syncuploadnewwork({ state }, { new_data }) {
-      var keys = Object.keys(new_data)
-      var date_data = new Date(
-        Number(keys[0].substr(0, 4)),
-        Number(keys[0].substr(4, 2)) - 1,
-        Number(keys[0].substr(6, 2))
+    async syncuploadnewwork(/*{ state } , { new_data }*/) {
+      console.log(rootfirestore)
+      let docref = doc(
+        rootfirestore,
+        "TimeData",
+        "Njxl9BROqqb5Gy9ze9qcT7jcKmi2"
       )
-      date_data.setDate(date_data.getDate() - date_data.getDay())
-      var sanday_date =
-        date_data.getFullYear() +
-        ("00" + (date_data.getMonth() + 1)).slice(-2) +
-        ("00" + date_data.getDate()).slice(-2)
-      set(
-        ref(
-          rootdatabase,
-          "Users/" + state.user.uid + "/TimeData/" + sanday_date + "/" + keys
-        ),
-        {
-          ColorTag: new_data[keys].ColorTag,
-          Memo: new_data[keys].Memo,
-          Work: new_data[keys].Work,
-        }
-      )
+      console.log("test")
+      let snapdoc = await getDoc(docref)
+
+      console.log(snapdoc)
+      console.log("送信前")
+      console.log(rootfirestore)
+      addDoc(collection(rootfirestore, "TimeData"), {
+        memo: "test",
+      })
+      console.log("test")
     },
     //データベースから記録を削除
     syncdeletework({ state }, { delete_date }) {

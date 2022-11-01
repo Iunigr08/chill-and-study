@@ -283,11 +283,11 @@ export default {
         if (result) {
           this.formated_send_data()
           //データを送信
-          /* this.$store.dispatch("syncuploadnewwork", {
-            new_data: this.send_data,
+          this.$store.dispatch("syncuploadnewwork", {
+            new_data: this.new_send_data,
           })
-          this.$store.commit("setSaveWork", this.send_data)
-          */ //画面を消す
+          /*this.$store.commit("setSaveWork", this.send_data)
+           */ //画面を消す
           this.togglePopup()
         } else {
           console.log("cancel")
